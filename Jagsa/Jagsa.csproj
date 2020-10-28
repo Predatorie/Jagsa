@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Infragistics.XF.DV" Version="19.1.15" />
+    <PackageReference Include="MobCAT.Forms" Version="1.0.7306" />
+    <PackageReference Include="MobCAT" Version="1.0.7306" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="App.xaml">
+      <LogicalName>App.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="AppShell.xaml">
+      <LogicalName>AppShell.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutPage.xaml">
+      <LogicalName>AboutPage.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ItemDetailPage.xaml">
+      <LogicalName>ItemDetailPage.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ItemsPage.xaml">
+      <LogicalName>ItemsPage.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LoginPage.xaml">
+      <LogicalName>LoginPage.xaml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewItemPage.xaml">
+      <LogicalName>NewItemPage.xaml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Fonts\" />
+  </ItemGroup>
+</Project>
