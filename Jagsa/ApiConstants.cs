@@ -1,7 +1,7 @@
 ﻿// ApiConstants.cs
 //
 // Author:
-//       mac-dev <Predatorie@live.com>
+//       mac-dev <aphextwin@gamerunners.co>
 //
 // Copyright (c) 2020 
 namespace Jagsa
