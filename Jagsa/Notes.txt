@@ -1,0 +1,23 @@
+﻿MobCAT
+https://github.com/xamcat/mobcat-library
+
+MobCAT is a toolbox created by our team to highlight and support the application
+of best practices and good architectural patterns for Xamarin.Forms, Xamarin.Android,
+and Xamarin.iOS apps.
+
+These projects can provide a foundation or light-weight starting point which can
+be built upon when adopted as part of your Xamarin solutions.
+
+The projects themselves are .NET Standard portable projects. The intent is
+that the source is cloned/forked and incorporated into your solutions directly
+through project reference or via a private NuGet feed. Please refer to the
+Getting Started Guide for more information.
+
+MobCAT twitch streams
+https://youtu.be/BT41EoUTKjY
+
+Smashcast:
+https://developers.smashcast.tv/
+
+FFImageLoading:
+https://github.com/luberda-molinet/FFImageLoading/wiki/Xamarin.Forms-API
