@@ -7,8 +7,12 @@
 
 namespace Jagsa.Services
 {
+    using System.Threading.Tasks;
+
+    using Jagsa.Models;
+
     public interface ISmashcastService
     {
-        //TODO: Implement interface
+        Task<Result<object>> FetchLiveStreamsAsync(string id);
     }
 }

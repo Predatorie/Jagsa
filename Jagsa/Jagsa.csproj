@@ -20,24 +20,20 @@
     <EmbeddedResource Update="AppShell.xaml">
       <LogicalName>AppShell.xaml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AboutPage.xaml">
-      <LogicalName>AboutPage.xaml</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\ItemDetailPage.xaml">
-      <LogicalName>ItemDetailPage.xaml</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\ItemsPage.xaml">
-      <LogicalName>ItemsPage.xaml</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <LogicalName>LoginPage.xaml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\NewItemPage.xaml">
-      <LogicalName>NewItemPage.xaml</LogicalName>
+    <EmbeddedResource Update="Views\HomePage.xaml">
+      <LogicalName>HomePage.xaml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

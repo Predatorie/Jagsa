@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 using Jagsa.ViewModels;
 
+using Microsoft.MobCAT.Forms.Pages;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Jagsa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : BaseContentPage<LoginPageViewModel>
     {
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
         }
     }
 }

@@ -7,8 +7,14 @@
 
 namespace Jagsa.Services
 {
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+
+    using Jagsa.Models;
+
     public interface ITwitchService
     {
-        //TODO: Implement interface
+        Task<Result<string>> FetchGameAsync(string game);
+        Task<Result<ObservableCollection<object>>> FetchLiveStreamsAsync(string id);
     }
 }
