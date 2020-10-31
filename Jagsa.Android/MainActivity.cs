@@ -24,6 +24,13 @@ namespace Jagsa.Droid
 
             Bootstrap.Begin();
 
+            /* // How to register a platform specific service
+            Bootstrap.Begin(platformSpecificBegin: () =>
+            {
+                ServiceContainer.Register<IAndroidNavigationService>(new IAndroidNavigationService());
+            });
+            */
+
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

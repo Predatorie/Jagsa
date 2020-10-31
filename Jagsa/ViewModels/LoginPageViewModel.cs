@@ -121,7 +121,7 @@ namespace Jagsa.ViewModels
                 Preferences.SetString("profileAvatar", profile.Avatarfull.ToString());
                 Preferences.SetString("steamId", profile.Steamid);
 
-                await Shell.Current.GoToAsync($"//Home?{args}");
+                await Shell.Current.GoToAsync($"//home?{args}");
             }
             else
             {

@@ -14,6 +14,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Styles\Text.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="App.xaml">
       <LogicalName>App.xaml</LogicalName>
     </EmbeddedResource>
@@ -26,10 +29,14 @@
     <EmbeddedResource Update="Views\HomePage.xaml">
       <LogicalName>HomePage.xaml</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Text.xaml">
+      <LogicalName>Text.xaml</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">

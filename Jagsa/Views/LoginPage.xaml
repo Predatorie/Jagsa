@@ -12,13 +12,28 @@
     Shell.NavBarIsVisible="False"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <StackLayout
-            Padding="10,0,10,0"
-            VerticalOptions="Center">
-            <Button
-                Command="{Binding LoginCommand}"
-                Text="Login"
-                VerticalOptions="Center" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout
+                x:Name="Root"
+                Spacing="10"
+                VerticalOptions="Center">
+                <!--  1. clear button  -->
+                <Entry
+                    x:Name="SteamIdEntry"
+                    Margin="40,0,40,0"
+                    Placeholder="Steam ID"
+                    Text="{Binding SteamId}" />
+                <Button
+                    x:Name="LoginButton"
+                    Margin="40,4,40,0"
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding Path=SteamId}"
+                    Text="Login"
+                    TextColor="White" />
+
+                <!--  2. remember me  -->
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </local:BaseContentPage>

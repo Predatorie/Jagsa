@@ -14,8 +14,16 @@ namespace Jagsa
         {
             InitializeComponent();
 
-            // Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            this.RegisterRoutes();
         }
 
+        private void RegisterRoutes()
+        {
+            // set in xaml?
+            //Routing.RegisterRoute("home", typeof(HomePage));
+            //Routing.RegisterRoute("library", typeof(LibraryPage));
+            //Routing.RegisterRoute("streams", typeof(GameStreamResultsPage));
+            //Routing.RegisterRoute("friends", typeof(FriendsPage));
+        }
     }
 }

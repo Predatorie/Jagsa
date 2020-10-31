@@ -51,35 +51,39 @@
                 TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
-    <TabBar>
-        <ShellContent
-            Title="Home"
-            ContentTemplate="{DataTemplate local:AboutPage}"
-            Icon="tab_about.png"
-            Route="AboutPage" />
 
-        <ShellContent
+    <!--  MY PAGES  -->
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="login"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:HomePage}"
+        Route="home"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <!--<ShellContent
             Title="Steam Library"
             ContentTemplate="{DataTemplate local:ItemsPage}"
-            Icon="tab_feed.png" />
+            Icon="tab_feed.png" />-->
 
-        <ShellContent
+    <!--<ShellContent
             Title="Twitch"
             ContentTemplate="{DataTemplate local:ItemsPage}"
-            Icon="tab_feed.png" />
+            Icon="tab_feed.png" />-->
 
-        <ShellContent
+    <!--<ShellContent
             Title="Smashcast"
             ContentTemplate="{DataTemplate local:ItemsPage}"
-            Icon="tab_feed.png" />
+            Icon="tab_feed.png" />-->
 
-    </TabBar>
+
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");
     -->
-    <ShellContent
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage"
-        Shell.FlyoutBehavior="Disabled" />
+
 </Shell>
