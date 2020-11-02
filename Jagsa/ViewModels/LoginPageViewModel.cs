@@ -124,10 +124,6 @@ namespace Jagsa.ViewModels
                 if (player.IsSuccess)
                 {
                     var profile = player.Value.Response.Players.First();
-                    var args =
-                        $"personna={profile.Personaname}" +
-                        $"&profileAvatar={profile.Avatarfull}" +
-                        $"&steamId={profile.Steamid}";
 
                     // Store for next session
                     Xamarin.Essentials.Preferences.Set("personna", profile.Personaname);
@@ -160,22 +156,5 @@ namespace Jagsa.ViewModels
         }
 
         #endregion
-
-        public override Task Initialize()
-        {
-            return base.Initialize();
-        }
-
-        //var id = Xamarin.Essentials.Preferences.Get("steamId", string.Empty);
-        //if (!string.IsNullOrEmpty(id))
-        //{
-        //    var args =
-        //        $"personna={Xamarin.Essentials.Preferences.Get("personna", string.Empty)}" +
-        //        $"&profileAvatar={Xamarin.Essentials.Preferences.Get("profileAvatar", string.Empty)}" +
-        //        $"&steamId={Xamarin.Essentials.Preferences.Get("steamId", string.Empty)}";
-
-        //    await Shell.Current.GoToAsync($"//home?{args}");
-        //}
-
     }
 }
