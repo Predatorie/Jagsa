@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseContentPage
+<tinymvvm:ShellViewBase
     x:Class="Jagsa.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:local="clr-namespace:Microsoft.MobCAT.Forms.Pages;assembly=MobCAT.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tinymvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
     xmlns:vm="clr-namespace:Jagsa.ViewModels"
     x:TypeArguments="vm:LoginPageViewModel"
     AutomationId="LoginPage"
@@ -31,9 +31,13 @@
                     Text="Login"
                     TextColor="White" />
 
-                <!--  2. remember me  -->
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    Color="Red" />
 
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-</local:BaseContentPage>
+</tinymvvm:ShellViewBase>

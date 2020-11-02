@@ -1,16 +1,32 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage
+<tinymvvm:ShellViewBase
     x:Class="Jagsa.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:tinymvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:vm="clr-namespace:Jagsa.ViewModels"
+    x:TypeArguments="vm:HomePageViewModel"
+    AutomationId="HomePage">
     <ContentPage.Content>
         <StackLayout
-            Padding="10,0,10,0"
+            HorizontalOptions="Center"
+            Orientation="Vertical"
             VerticalOptions="Center">
+
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="96"
+                Source="{Binding ProfileAvatar}"
+                WidthRequest="96" />
+
             <Label
                 HorizontalOptions="Center"
-                Text="HOME PAGE LOADED"
+                Text="{Binding SteamId}"
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding Personna}"
                 VerticalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</tinymvvm:ShellViewBase>

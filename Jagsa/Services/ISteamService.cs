@@ -15,9 +15,9 @@ namespace Jagsa.Services
 
     public interface ISteamService
     {
-        Task<Result<Profile>> FetchProfileAsync(string steamId);
+        Task<Result<Profile>> FetchProfileAsync(string steamId, CancellationToken token);
         Task<Result<GamesLibrary>> FetchLibraryAsync(string steamId, CancellationToken token);
-        Task<Result<ObservableCollection<Profile>>> FetchFriendsProfileAsync(Friend[] friends);
-        Task<Result<Friendslist>> FetchFriendsAsync(string steamId);
+        Task<Result<ObservableCollection<Profile>>> FetchFriendsProfileAsync(Friend[] friends, CancellationToken token);
+        Task<Result<Friendslist>> FetchFriendsAsync(string steamId, CancellationToken token);
     }
 }

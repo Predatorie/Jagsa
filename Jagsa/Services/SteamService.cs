@@ -35,11 +35,11 @@ namespace Jagsa.Services
         /// </summary>
         /// <param name="steamId">The steam users steam id.</param>
         /// <returns>A list of steam friends.</returns>
-        public async Task<Result<Friendslist>> FetchFriendsAsync(string steamId)
+        public async Task<Result<Friendslist>> FetchFriendsAsync(string steamId, CancellationToken token)
         {
             var query =
                 $"ISteamUser/GetFriendList/v0001/?key={ApiConstants.SteamApiKey}&steamid={steamId}&relationship=friend";
-            var returnList = await this.GetAsync<Friendslist>(query);
+            var returnList = await this.GetAsync<Friendslist>(query, token);
 
             return Result.Ok(returnList);
         }
@@ -49,7 +49,7 @@ namespace Jagsa.Services
         /// </summary>
         /// <param name="friends">A list of steam friends.</param>
         /// <returns>A list of steam friend profiles.</returns>
-        public Task<Result<ObservableCollection<Profile>>> FetchFriendsProfileAsync(Friend[] friends)
+        public Task<Result<ObservableCollection<Profile>>> FetchFriendsProfileAsync(Friend[] friends, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -74,12 +74,17 @@ namespace Jagsa.Services
         /// </summary>
         /// <param name="steamId">The users steam id.</param>
         /// <returns>The users steam profile.</returns>
-        public async Task<Result<Profile>> FetchProfileAsync(string steamId)
+        public async Task<Result<Profile>> FetchProfileAsync(string steamId, CancellationToken token)
         {
             var query = $"ISteamUser/GetPlayerSummaries/v0002/?key={ApiConstants.SteamApiKey}&steamids={steamId}";
-            var profile = await this.GetAsync<Profile>(query);
 
-            return Result.Ok(profile);
+            var profile = await this.GetAsync<Profile>(query, token);
+            if (profile.Response != null)
+            {
+                return Result.Ok(profile);
+            }
+
+            return Result.Fail<Profile>("Fetching Steam profile failed.");
         }
     }
 }

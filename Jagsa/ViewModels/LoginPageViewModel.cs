@@ -7,17 +7,22 @@
 
 namespace Jagsa.ViewModels
 {
+    using System.Diagnostics;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
 
+    using Jagsa.Models;
     using Jagsa.Services;
 
     using Microsoft.MobCAT;
-    using Microsoft.MobCAT.MVVM;
-    using Microsoft.MobCAT.Services;
+
+    using TinyMvvm;
 
     using Xamarin.Forms;
 
-    public class LoginPageViewModel : BaseNavigationViewModel
+    public class LoginPageViewModel : ViewModelBase
     {
         #region Private Fields
 
@@ -54,7 +59,7 @@ namespace Jagsa.ViewModels
 
             // wire up our commands
             this.LoginCommand = new Microsoft.MobCAT.MVVM.Command<string>(OnLoginCommand, (i)
-                => !string.IsNullOrWhiteSpace(i));
+               => !string.IsNullOrWhiteSpace(i));
         }
 
         #endregion
@@ -64,7 +69,7 @@ namespace Jagsa.ViewModels
         /// <summary>
         /// Gets the Login command.
         /// </summary>
-        public Microsoft.MobCAT.MVVM.Command LoginCommand { get; }
+        public ICommand LoginCommand { get; }
 
         #endregion
 
@@ -76,7 +81,7 @@ namespace Jagsa.ViewModels
         public string SteamId
         {
             get => this.steamId;
-            set => this.RaiseAndUpdate(ref steamId, value);
+            set => this.Set(ref steamId, value);
         }
 
         /// <summary>
@@ -85,7 +90,7 @@ namespace Jagsa.ViewModels
         public string Personna
         {
             get => this.personna;
-            set => this.RaiseAndUpdate(ref personna, value);
+            set => this.Set(ref personna, value);
         }
 
         /// <summary>
@@ -94,7 +99,7 @@ namespace Jagsa.ViewModels
         public string ProfileAvatar
         {
             get => this.profileAvatar;
-            set => this.RaiseAndUpdate(ref profileAvatar, value);
+            set => this.Set(ref profileAvatar, value);
         }
 
         #endregion
@@ -107,28 +112,70 @@ namespace Jagsa.ViewModels
         /// <param name="id">The steam id to use for login</param>
         private async void OnLoginCommand(string id)
         {
-            var player = await this.steamService.FetchProfileAsync(id).ConfigureAwait(true);
-            if (player.IsSuccess)
-            {
-                var profile = player.Value.Response.Players.First();
-                var args =
-                    $"personna={profile.Personaname}" +
-                    $"&profileAvatar={profile.Avatarfull}" +
-                    $"&steamId={profile.Steamid}";
+            var cancellationToken = new CancellationTokenSource();
 
-                // Store for next session
-                Preferences.SetString("personna", profile.Personaname);
-                Preferences.SetString("profileAvatar", profile.Avatarfull.ToString());
-                Preferences.SetString("steamId", profile.Steamid);
-
-                await Shell.Current.GoToAsync($"//home?{args}");
-            }
-            else
+            try
             {
-                await Shell.Current.DisplayAlert("Steam Login", player.Error, "OK");
+                this.IsBusy = true;
+
+                var token = cancellationToken.Token;
+
+                var player = await this.steamService.FetchProfileAsync(id, token).ConfigureAwait(true);
+                if (player.IsSuccess)
+                {
+                    var profile = player.Value.Response.Players.First();
+                    var args =
+                        $"personna={profile.Personaname}" +
+                        $"&profileAvatar={profile.Avatarfull}" +
+                        $"&steamId={profile.Steamid}";
+
+                    // Store for next session
+                    Xamarin.Essentials.Preferences.Set("personna", profile.Personaname);
+                    Xamarin.Essentials.Preferences.Set("profileAvatar", profile.Avatarfull.ToString());
+                    Xamarin.Essentials.Preferences.Set("steamId", profile.Steamid);
+
+                    var user = new User
+                    {
+                        Persona = profile.Personaname,
+                        Avatar = profile.Avatarfull
+                    };
+
+                    await Navigation.NavigateToAsync($"{nameof(HomePageViewModel)}?id={profile.Steamid}", user);
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Steam Login", player.Error, "OK");
+                }
             }
+            catch (System.Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                this.IsBusy = false;
+                cancellationToken?.Dispose();
+            }
+
         }
 
         #endregion
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        //var id = Xamarin.Essentials.Preferences.Get("steamId", string.Empty);
+        //if (!string.IsNullOrEmpty(id))
+        //{
+        //    var args =
+        //        $"personna={Xamarin.Essentials.Preferences.Get("personna", string.Empty)}" +
+        //        $"&profileAvatar={Xamarin.Essentials.Preferences.Get("profileAvatar", string.Empty)}" +
+        //        $"&steamId={Xamarin.Essentials.Preferences.Get("steamId", string.Empty)}";
+
+        //    await Shell.Current.GoToAsync($"//home?{args}");
+        //}
+
     }
 }
