@@ -14,10 +14,14 @@ namespace Jagsa.ViewModels
     using Jagsa.Services;
 
     using Microsoft.MobCAT;
+    using Microsoft.MobCAT.MVVM;
 
-    using TinyMvvm;
+    using Xamarin.Forms;
 
-    public class HomePageViewModel : ViewModelBase
+    [QueryProperty("SteamId", "steamId")]
+    [QueryProperty("Personna", "personna")]
+    [QueryProperty("ProfileAvatar", "profileAvatar")]
+    public class HomePageViewModel : BaseNavigationViewModel
     {
         #region Private Fields
 
@@ -73,25 +77,25 @@ namespace Jagsa.ViewModels
         public string ProfileAvatar
         {
             get => _profileAvatar;
-            set => Set(ref _profileAvatar, Uri.UnescapeDataString(value));
+            set => RaiseAndUpdate(ref _profileAvatar, Uri.UnescapeDataString(value));
         }
 
         public string Personna
         {
             get => _personna;
-            set => Set(ref _personna, Uri.UnescapeDataString(value));
+            set => RaiseAndUpdate(ref _personna, Uri.UnescapeDataString(value));
         }
 
         public string SteamId
         {
             get => _steamId;
-            set => Set(ref _steamId, Uri.EscapeDataString(value));
+            set => RaiseAndUpdate(ref _steamId, Uri.EscapeDataString(value));
         }
 
         public string TotalPlayTime
         {
             get => _totalPlayTime;
-            set => Set(ref _totalPlayTime, value);
+            set => RaiseAndUpdate(ref _totalPlayTime, value);
         }
 
         //public ObservableCollection<Profile> Friendslist
@@ -110,16 +114,25 @@ namespace Jagsa.ViewModels
 
         #region Public Methods
 
-        public override async Task Initialize()
+        public override async Task InitAsync()
         {
-            await base.Initialize();
+            try
+            {
+                this.IsBusy = true;
 
-            var user = NavigationParameter as User;
-            var id = QueryParameters["id"];
-
-            this.SteamId = id;
-            this.Personna = user.Persona;
-            this.ProfileAvatar = user.Avatar.ToString();
+                if (!string.IsNullOrEmpty(this.SteamId))
+                {
+                    // TODO: Implement
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                this.IsBusy = false;
+            }
         }
 
         #endregion

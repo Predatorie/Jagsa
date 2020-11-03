@@ -4,11 +4,14 @@
 //       mac-dev <aphextwin@gamerunners.co>
 //
 // Copyright (c) 2020 
-using Jagsa.ViewModels;
 
 namespace Jagsa.Views
 {
-    public partial class HomePage : TinyMvvm.Forms.ShellViewBase<HomePageViewModel>
+    using Jagsa.ViewModels;
+
+    using Microsoft.MobCAT.Forms.Pages;
+
+    public partial class HomePage : BaseContentPage<HomePageViewModel>
     {
         public HomePage()
         {

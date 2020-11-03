@@ -10,19 +10,16 @@ namespace Jagsa.ViewModels
     using System.Diagnostics;
     using System.Linq;
     using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows.Input;
 
-    using Jagsa.Models;
     using Jagsa.Services;
 
     using Microsoft.MobCAT;
-
-    using TinyMvvm;
+    using Microsoft.MobCAT.MVVM;
 
     using Xamarin.Forms;
 
-    public class LoginPageViewModel : ViewModelBase
+    public class LoginPageViewModel : BaseNavigationViewModel
     {
         #region Private Fields
 
@@ -81,7 +78,7 @@ namespace Jagsa.ViewModels
         public string SteamId
         {
             get => this.steamId;
-            set => this.Set(ref steamId, value);
+            set => this.RaiseAndUpdate(ref steamId, value);
         }
 
         /// <summary>
@@ -90,7 +87,7 @@ namespace Jagsa.ViewModels
         public string Personna
         {
             get => this.personna;
-            set => this.Set(ref personna, value);
+            set => this.RaiseAndUpdate(ref personna, value);
         }
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace Jagsa.ViewModels
         public string ProfileAvatar
         {
             get => this.profileAvatar;
-            set => this.Set(ref profileAvatar, value);
+            set => this.RaiseAndUpdate(ref profileAvatar, value);
         }
 
         #endregion
@@ -130,13 +127,12 @@ namespace Jagsa.ViewModels
                     Xamarin.Essentials.Preferences.Set("profileAvatar", profile.Avatarfull.ToString());
                     Xamarin.Essentials.Preferences.Set("steamId", profile.Steamid);
 
-                    var user = new User
-                    {
-                        Persona = profile.Personaname,
-                        Avatar = profile.Avatarfull
-                    };
+                    var args =
+                           $"personna={profile.Personaname}" +
+                           $"&profileAvatar={profile.Avatarfull}" +
+                           $"&steamId={profile.Steamid}";
 
-                    await Navigation.NavigateToAsync($"{nameof(HomePageViewModel)}?id={profile.Steamid}", user);
+                    await Shell.Current.GoToAsync($"//Home?{args}");
                 }
                 else
                 {

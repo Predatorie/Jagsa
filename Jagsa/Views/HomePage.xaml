@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<tinymvvm:ShellViewBase
+<local:BaseContentPage
     x:Class="Jagsa.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:tinymvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:local="clr-namespace:Microsoft.MobCAT.Forms.Pages;assembly=MobCAT.Forms"
     xmlns:vm="clr-namespace:Jagsa.ViewModels"
     x:TypeArguments="vm:HomePageViewModel"
     AutomationId="HomePage">
@@ -29,4 +29,4 @@
                 VerticalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
-</tinymvvm:ShellViewBase>
+</local:BaseContentPage>
