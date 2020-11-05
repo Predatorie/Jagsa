@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<tinymvvm:ShellViewBase
+    x:Class="Jagsa.Views.FriendsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:tinymvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:vm="clr-namespace:Jagsa.ViewModels"
+    x:TypeArguments="vm:FriendsPageViewModel"
+    AutomationId="FriendsPage">
+
+
+    <tinymvvm:ShellViewBase.Content />
+
+</tinymvvm:ShellViewBase>

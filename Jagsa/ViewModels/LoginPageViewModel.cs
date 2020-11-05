@@ -12,14 +12,17 @@ namespace Jagsa.ViewModels
     using System.Threading;
     using System.Windows.Input;
 
+    using Jagsa.Models;
     using Jagsa.Services;
 
     using Microsoft.MobCAT;
     using Microsoft.MobCAT.MVVM;
 
+    using TinyMvvm;
+
     using Xamarin.Forms;
 
-    public class LoginPageViewModel : BaseNavigationViewModel
+    public class LoginPageViewModel : ViewModelBase
     {
         #region Private Fields
 
@@ -78,7 +81,7 @@ namespace Jagsa.ViewModels
         public string SteamId
         {
             get => this.steamId;
-            set => this.RaiseAndUpdate(ref steamId, value);
+            set => this.Set(ref steamId, value);
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace Jagsa.ViewModels
         public string Personna
         {
             get => this.personna;
-            set => this.RaiseAndUpdate(ref personna, value);
+            set => this.Set(ref personna, value);
         }
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace Jagsa.ViewModels
         public string ProfileAvatar
         {
             get => this.profileAvatar;
-            set => this.RaiseAndUpdate(ref profileAvatar, value);
+            set => this.Set(ref profileAvatar, value);
         }
 
         #endregion
@@ -121,18 +124,23 @@ namespace Jagsa.ViewModels
                 if (player.IsSuccess)
                 {
                     var profile = player.Value.Response.Players.First();
+                    var args =
+                        $"personna={profile.Personaname}" +
+                        $"&profileAvatar={profile.Avatarfull}" +
+                        $"&steamId={profile.Steamid}";
 
                     // Store for next session
                     Xamarin.Essentials.Preferences.Set("personna", profile.Personaname);
                     Xamarin.Essentials.Preferences.Set("profileAvatar", profile.Avatarfull.ToString());
                     Xamarin.Essentials.Preferences.Set("steamId", profile.Steamid);
 
-                    var args =
-                           $"personna={profile.Personaname}" +
-                           $"&profileAvatar={profile.Avatarfull}" +
-                           $"&steamId={profile.Steamid}";
+                    var user = new User
+                    {
+                        Persona = profile.Personaname,
+                        Avatar = profile.Avatarfull
+                    };
 
-                    await Shell.Current.GoToAsync($"//Home?{args}");
+                    await Navigation.NavigateToAsync($"{nameof(HomePageViewModel)}?id={profile.Steamid}", user);
                 }
                 else
                 {
@@ -148,7 +156,6 @@ namespace Jagsa.ViewModels
                 this.IsBusy = false;
                 cancellationToken?.Dispose();
             }
-
         }
 
         #endregion

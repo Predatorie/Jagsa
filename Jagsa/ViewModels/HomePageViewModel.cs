@@ -14,14 +14,12 @@ namespace Jagsa.ViewModels
     using Jagsa.Services;
 
     using Microsoft.MobCAT;
-    using Microsoft.MobCAT.MVVM;
+
+    using TinyMvvm;
 
     using Xamarin.Forms;
 
-    [QueryProperty("SteamId", "steamId")]
-    [QueryProperty("Personna", "personna")]
-    [QueryProperty("ProfileAvatar", "profileAvatar")]
-    public class HomePageViewModel : BaseNavigationViewModel
+    public class HomePageViewModel : ViewModelBase
     {
         #region Private Fields
 
@@ -77,25 +75,25 @@ namespace Jagsa.ViewModels
         public string ProfileAvatar
         {
             get => _profileAvatar;
-            set => RaiseAndUpdate(ref _profileAvatar, Uri.UnescapeDataString(value));
+            set => Set(ref _profileAvatar, Uri.UnescapeDataString(value));
         }
 
         public string Personna
         {
             get => _personna;
-            set => RaiseAndUpdate(ref _personna, Uri.UnescapeDataString(value));
+            set => Set(ref _personna, Uri.UnescapeDataString(value));
         }
 
         public string SteamId
         {
             get => _steamId;
-            set => RaiseAndUpdate(ref _steamId, Uri.EscapeDataString(value));
+            set => Set(ref _steamId, Uri.UnescapeDataString(value));
         }
 
         public string TotalPlayTime
         {
             get => _totalPlayTime;
-            set => RaiseAndUpdate(ref _totalPlayTime, value);
+            set => Set(ref _totalPlayTime, value);
         }
 
         //public ObservableCollection<Profile> Friendslist
@@ -114,16 +112,19 @@ namespace Jagsa.ViewModels
 
         #region Public Methods
 
-        public override async Task InitAsync()
+        public override async Task Initialize()
         {
+            await base.Initialize();
+
             try
             {
                 this.IsBusy = true;
 
-                if (!string.IsNullOrEmpty(this.SteamId))
-                {
-                    // TODO: Implement
-                }
+                var user = NavigationParameter as User;
+
+                this.SteamId = QueryParameters["id"];
+                this.Personna = user.Persona;
+                this.ProfileAvatar = user.Avatar.ToString();
             }
             catch (Exception ex)
             {
@@ -134,6 +135,7 @@ namespace Jagsa.ViewModels
                 this.IsBusy = false;
             }
         }
+
 
         #endregion
 

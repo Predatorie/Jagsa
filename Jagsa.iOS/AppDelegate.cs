@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using FFImageLoading.Forms.Platform;
+
 using Foundation;
 
 using UIKit;
@@ -33,6 +35,8 @@ namespace Jagsa.iOS
                 ServiceContainer.Register<IiOSNavigationService>(new IiOSNavigationService());
             });
             */
+            CachedImageRenderer.Init();
+            CachedImageRenderer.InitImageSourceHandler();
 
             LoadApplication(new App());
 

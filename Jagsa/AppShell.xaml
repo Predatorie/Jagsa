@@ -59,11 +59,30 @@
         Route="login"
         Shell.FlyoutBehavior="Disabled" />
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:HomePage}"
-        Route="home"
-        Shell.FlyoutBehavior="Disabled" />
+    <TabBar>
+        <Tab
+            Title="Home">
+            <local:HomePage />
+        </Tab>
+
+        <Tab
+            Title="Library">
+            <ShellContent
+                Title="Library"
+                ContentTemplate="{DataTemplate local:LibraryPage}"
+                Icon="tab_feed.png" />
+        </Tab>
+
+        <Tab
+            Title="Friends">
+            <ShellContent
+                Title="Friends"
+                ContentTemplate="{DataTemplate local:FriendsPage}"
+                Icon="tab_feed.png" />
+        </Tab>
+
+    </TabBar>
+
 
     <!--<ShellContent
             Title="Steam Library"

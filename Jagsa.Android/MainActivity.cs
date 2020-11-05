@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using FFImageLoading.Forms.Platform;
 
 namespace Jagsa.Droid
 {
@@ -30,6 +31,8 @@ namespace Jagsa.Droid
                 ServiceContainer.Register<IAndroidNavigationService>(new IAndroidNavigationService());
             });
             */
+            CachedImageRenderer.Init(enableFastRenderer: true);
+            CachedImageRenderer.InitImageViewHandler();
 
             LoadApplication(new App());
         }

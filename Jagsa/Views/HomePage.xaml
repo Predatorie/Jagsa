@@ -1,32 +1,44 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<local:BaseContentPage
+<tinymvvm:ShellViewBase
     x:Class="Jagsa.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Microsoft.MobCAT.Forms.Pages;assembly=MobCAT.Forms"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:tinymvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
     xmlns:vm="clr-namespace:Jagsa.ViewModels"
     x:TypeArguments="vm:HomePageViewModel"
-    AutomationId="HomePage">
-    <ContentPage.Content>
-        <StackLayout
-            HorizontalOptions="Center"
-            Orientation="Vertical"
-            VerticalOptions="Center">
+    AutomationId="HomePage"
+    Shell.NavBarIsVisible="False">
 
-            <Image
-                Aspect="AspectFit"
-                HeightRequest="96"
-                Source="{Binding ProfileAvatar}"
-                WidthRequest="96" />
+    <tinymvvm:ShellViewBase.Content>
 
-            <Label
-                HorizontalOptions="Center"
-                Text="{Binding SteamId}"
-                VerticalOptions="Center" />
-            <Label
-                HorizontalOptions="Center"
-                Text="{Binding Personna}"
-                VerticalOptions="Center" />
-        </StackLayout>
-    </ContentPage.Content>
-</local:BaseContentPage>
+        <ScrollView>
+
+            <StackLayout
+                Margin="10"
+                BackgroundColor="Transparent">
+
+                <ffimageloading:CachedImage
+                    Aspect="AspectFit"
+                    HeightRequest="176"
+                    HorizontalOptions="Center"
+                    Source="{Binding ProfileAvatar}"
+                    VerticalOptions="Center"
+                    WidthRequest="176" />
+
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="{Binding Personna}"
+                    VerticalOptions="Center" />
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+
+
+
+    </tinymvvm:ShellViewBase.Content>
+</tinymvvm:ShellViewBase>

@@ -7,10 +7,25 @@
 
 namespace Jagsa
 {
-    using Xamarin.Forms;
     using System;
     using System.Diagnostics;
+    using System.Reflection;
+
+    using Autofac;
+
     using Jagsa.Extensions;
+    using Jagsa.Models;
+    using Jagsa.Services;
+    using Jagsa.ViewModels;
+
+    using TinyMvvm;
+    using TinyMvvm.Autofac;
+    using TinyMvvm.IoC;
+
+    using TinyNavigationHelper;
+    using TinyNavigationHelper.Forms;
+
+    using Xamarin.Forms;
 
     public partial class App : Application
     {
@@ -20,6 +35,28 @@ namespace Jagsa
         public App()
         {
             InitializeComponent();
+
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            var navigationHelper = new ShellNavigationHelper();
+
+            navigationHelper.RegisterViewsInAssembly(currentAssembly);
+
+            // Register our Navigation Helper
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance<INavigationHelper>(navigationHelper);
+
+            // Register all pages and viewmodels
+            var appAssembly = typeof(App).GetTypeInfo().Assembly;
+            builder.RegisterAssemblyTypes(appAssembly).Where(x => x.IsSubclassOf(typeof(Page)));
+            builder.RegisterAssemblyTypes(appAssembly).Where(x => x.IsSubclassOf(typeof(ViewModelBase)));
+
+            // Register our Services
+            builder.RegisterInstance(nameof(SteamService));
+            builder.RegisterInstance(nameof(TwitchService));
+            builder.RegisterInstance(nameof(SmashcastService));
+
+            var container = builder.Build();
+            Resolver.SetResolver(new AutofacResolver(container));
 
             MainPage = new AppShell();
 
@@ -44,20 +81,23 @@ namespace Jagsa
         /// </summary>
         private void OnInit()
         {
+            var navigationHelper = Resolver.Resolve<INavigationHelper>();
+
             // If we have saved data from previous session get it and go to the home page
             var id = Xamarin.Essentials.Preferences.Get("steamId", string.Empty);
             if (!string.IsNullOrEmpty(id))
             {
-                var args =
-                           $"personna={Xamarin.Essentials.Preferences.Get("personna", string.Empty)}" +
-                           $"&profileAvatar={Xamarin.Essentials.Preferences.Get("profileAvatar", string.Empty)}" +
-                           $"&steamId={id}";
+                var user = new User
+                {
+                    Persona = Xamarin.Essentials.Preferences.Get("personna", string.Empty),
+                    Avatar = new Uri(Xamarin.Essentials.Preferences.Get("profileAvatar", string.Empty))
+                };
 
-                Shell.Current.GoToAsync($"//home/?{args}").Await(this.SuccessHandler, this.ErrorHandler);
+                navigationHelper.NavigateToAsync($"{nameof(HomePageViewModel)}?id={id}", user).Await(this.SuccessHandler, this.ErrorHandler);
             }
             else
             {
-                Shell.Current.GoToAsync("//login").Await(this.SuccessHandler, this.ErrorHandler);
+                navigationHelper.NavigateToAsync(nameof(LoginPageViewModel));
             }
         }
 

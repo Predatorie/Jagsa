@@ -1,17 +1,16 @@
-﻿// HomePage.xaml.cs
+﻿// LibraryPage.xaml.cs
 //
 // Author:
 //       mac-dev <aphextwin@gamerunners.co>
 //
 // Copyright (c) 2020 
+using Jagsa.ViewModels;
 
 namespace Jagsa.Views
 {
-    using Jagsa.ViewModels;
-
-    public partial class HomePage : TinyMvvm.Forms.ShellViewBase<HomePageViewModel>
+    public partial class LibraryPage : TinyMvvm.Forms.ShellViewBase<LibraryPageViewModel>
     {
-        public HomePage()
+        public LibraryPage()
         {
             InitializeComponent();
         }
